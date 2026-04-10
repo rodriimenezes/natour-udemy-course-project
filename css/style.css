@@ -45,7 +45,7 @@ body {
     url('../img/hero.jpg');
     background-size: cover;
     background-position: top;
-
+    position: relative;
     clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
 }
 
@@ -122,6 +122,17 @@ body {
     padding: 15px 40px;
     border-radius: 100px;
     
+    /* 
+     * the target here is to make the ::after element right behind
+     * the main element. so i used the position: absolute; on the
+     * ::after element with the top and left = to 0.
+     * but the position: absolute; gets the reference from the first
+     * relative positioned element it can find. so to do what we want,
+     * is necessary to determinate position: relative; here.
+     */
+    
+    position: relative;
+    
     /* the transition property is another way to specify animations. 
      * it gets trigged when a property value changes.
      * it's usualy used with states (:hover, :link, :visited, 
@@ -161,6 +172,61 @@ body {
     color: #777;
 }
 
+
+/* 
+ * ::after is a pseudo-element placed right after the content 
+ * of the element. 
+ * it allows to style and add decorative elements without changing
+ * the actual HTML code.
+ */
+
+.btn::after {
+    /* 
+     * ALWAYS necessary to specify the content and the display.
+     * in this case, display needs to be the same as the parent class.
+     *
+     * also in this case, we want this element to be the same as
+     * the one we are referencing
+     */
+    content: "";
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all .4s;
+
+    /* 
+     * indicates the z layer of the element. 
+     * (if the element is on top of another or at the bottom) 
+     */
+    z-index: -1;
+}
+
+.btn-white::after{
+    background-color: #fff;
+}
+
+.btn:hover::after{
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+}
+
+.btn-animated{
+    animation: moveInBottom .5s ease-out .75s;
+    
+    /* fix the problem of the button showing before 
+     * the animation starts.
+     * animation-fill-mode fills the time the animation
+     * not started with the keyframes you indicate.
+     * the example here is backwards to fill with the 0% 
+     * keyframe.
+     */
+    animation-fill-mode: backwards;
+}
+
 /*=============================================
 =                  ANIMATIONS                 =
 =============================================*/
@@ -194,5 +260,17 @@ body {
     100% {
         opacity: 1;
         transform: translateX(0);
+    }
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
