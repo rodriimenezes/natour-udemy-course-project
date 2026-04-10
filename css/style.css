@@ -64,13 +64,14 @@ body {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
+    text-align: center;
 }
 
 .heading-primary {
     color: #fff;
     text-transform: uppercase;
+    margin-bottom: 60px;
 
-    
     /* fix shake when text animates */
     backface-visibility: hidden; 
 }
@@ -85,11 +86,11 @@ body {
     animation-duration: 1s;
     animation-timing-function: ease-out;
 
-    /*----------  OTHER PROPERTIES  ----------*/
+    /*----------  OTHER INTERESTING PROPERTIES  ----------*/
     
-    /* animation-delay: 3s; */
-    
-    /* animation-iteration-count: 3; */
+    /* animation-delay: 3s;
+     * animation-iteration-count: 3; 
+     */
 }
 
 .heading-primary-sub {
@@ -97,8 +98,68 @@ body {
     font-size: 20px;
     font-weight: 700;
     letter-spacing: 17.4px;
+
+    /* animations can be declared in one-line property like this as well */
+    animation: moveInRight 1s ease-out;
 }
 
+
+/* this :link and :visited in the btn class are the states of the <a> tag. 
+ * :link -> when the <a> tag was not visited yet.
+ * :visited -> as expected, is when the <a> tag was already visited. 
+ *
+ * in this case, i want the states to be the same each other.
+ */
+
+.btn:link, 
+.btn:visited {
+    
+    /* use block-type display to give the right paddings */
+    display: inline-block;
+
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 40px;
+    border-radius: 100px;
+    
+    /* the transition property is another way to specify animations. 
+     * it gets trigged when a property value changes.
+     * it's usualy used with states (:hover, :link, :visited, 
+     * and more...), but it can also be used with classes in JavaScript.
+     *
+     * transition-property: select which property is animated. can be
+     * all or none also.
+     *
+     * transition-duration: defines the duration of the animation.
+     * 
+     * transition-timing-function: says the speed curve of the function.
+     * 
+     * transition-delay: determinates the delay before the animation 
+     * starts.
+     */
+    transition: all .2s ease-out;
+}
+
+
+/* :hover is the state when the pointer of the moiuse is on top of the tag */
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+}
+
+
+/* :active is the state when the tag is clicked */
+
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.btn-white {
+    background-color: #fff;
+    color: #777;
+}
 
 /*=============================================
 =                  ANIMATIONS                 =
